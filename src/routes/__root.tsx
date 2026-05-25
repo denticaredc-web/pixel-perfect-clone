@@ -153,19 +153,19 @@ function SiteNav() {
   return (
     <nav className="sticky top-0 z-40 backdrop-blur-xl bg-background/85 border-b border-border">
       <div className="container mx-auto px-4 h-14 flex items-center justify-between">
-        <div className="flex items-center gap-5 text-sm font-semibold">
+        <div className="flex items-center gap-2 text-sm font-semibold">
           <Link
             to="/"
-            className="text-foreground hover:text-brand transition-colors"
-            activeProps={{ className: "text-brand" }}
+            className="px-4 py-2 rounded-full text-foreground bg-muted/60 hover:bg-muted transition-colors"
+            activeProps={{ className: "bg-primary text-primary-foreground hover:bg-primary/90" }}
             activeOptions={{ exact: true }}
           >
             Home
           </Link>
           <Link
             to="/contact"
-            className="text-foreground hover:text-brand transition-colors"
-            activeProps={{ className: "text-brand" }}
+            className="px-4 py-2 rounded-full text-foreground bg-muted/60 hover:bg-muted transition-colors"
+            activeProps={{ className: "bg-primary text-primary-foreground hover:bg-primary/90" }}
           >
             Contact
           </Link>

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
-import { catalog } from "@/components/site/cart/catalog";
+import { useLiveCatalog } from "@/hooks/use-live-catalog";
 
 export const Route = createFileRoute("/home-services")({
   head: () => ({
@@ -15,6 +15,7 @@ export const Route = createFileRoute("/home-services")({
 });
 
 function HomeServicesPage() {
+  const catalog = useLiveCatalog();
   const subs = catalog.filter((c) => c.parent === "home-services");
   return (
     <div className="pb-16">

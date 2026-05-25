@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { catalog } from "@/components/site/cart/catalog";
+import { useLiveCatalog } from "@/hooks/use-live-catalog";
 import { About } from "@/components/site/About";
 import { Reviews } from "@/components/site/Reviews";
 
@@ -23,6 +23,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const catalog = useLiveCatalog();
   const topCategories = catalog.filter((c) => !c.parent);
   const mobileTopIds = ["home-services", "cleaning"];
   const mobileTop = topCategories.filter((c) => mobileTopIds.includes(c.id));

@@ -1,13 +1,14 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Check, ChevronDown, Minus, Plus, ShoppingCart, Star, X } from "lucide-react";
-import { catalog, type CatalogItem } from "@/components/site/cart/catalog";
+import { catalog as baseCatalog, type CatalogItem } from "@/components/site/cart/catalog";
+import { useLiveCatalog } from "@/hooks/use-live-catalog";
 import { useCart } from "@/components/site/cart/CartContext";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/categories/$id")({
   head: ({ params }) => {
-    const cat = catalog.find((c) => c.id === params.id);
+    const cat = baseCatalog.find((c) => c.id === params.id);
     const title = cat ? `${cat.name} — AllFix` : "Category — AllFix";
     const description = cat?.blurb ?? "Browse services in this category.";
     return {
@@ -20,9 +21,9 @@ export const Route = createFileRoute("/categories/$id")({
     };
   },
   loader: ({ params }) => {
-    const cat = catalog.find((c) => c.id === params.id);
+    const cat = baseCatalog.find((c) => c.id === params.id);
     if (!cat) throw notFound();
-    return { cat };
+    return { id: params.id };
   },
   notFoundComponent: () => (
     <div className="container mx-auto px-4 py-20 text-center">
@@ -40,7 +41,9 @@ export const Route = createFileRoute("/categories/$id")({
 });
 
 function CategoryPage() {
-  const { cat } = Route.useLoaderData();
+  const { id } = Route.useLoaderData();
+  const catalog = useLiveCatalog();
+  const cat = catalog.find((c) => c.id === id) ?? baseCatalog.find((c) => c.id === id)!;
 
   return (
     <div className="pb-16">
